@@ -32,8 +32,8 @@ count() {
 		
 		((ITERATOR++))
 		((CURR_SEC++))
-		#sleep 0.1
-		sleep 1
+		sleep 0.1
+		#sleep 1
 	done
 
 	printf "\n"
@@ -42,13 +42,16 @@ count() {
 pomodoro() {
 	local POMO=$1
 	local REST=$2
-	#local LONG_REST=$3
-	#local INTERVAL=$4
+	local LONG_REST=$3
+	local INTERVAL=$4
 
-	echo "Welcome to a $POMO/$REST pomodoro."
+	echo "Welcome to a $POMO/$REST/$LONG_REST/$INTERVAL pomodoro."
 	
-	echo "FOCUS!"
-	count $POMO
+	for (( i=1;i<=$INTERVAL;i++ )); do
+		echo "FOCUS! [$i/$INTERVAL]"
+		count $POMO
+
+	done
 
 	echo "REST!"
 	count $REST
@@ -56,8 +59,8 @@ pomodoro() {
 
 POMO=$1
 REST=$2
-#LONG_REST=$3
-#INTERVAL=$4
+LONG_REST=$3
+INTERVAL=$4
 
-pomodoro $POMO $REST $INTERVAL
+pomodoro $POMO $REST $LONG_REST $INTERVAL
 #count $POMO
