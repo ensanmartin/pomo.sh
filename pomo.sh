@@ -11,9 +11,6 @@ count() {
 	local MIN=$1
 	local SECONDS=$(to_seconds MIN)
 
-	#echo $MIN
-	#echo $SECONDS
-
 	ITERATOR=0
 	CURR_MIN=0
 	CURR_SEC=0
@@ -32,8 +29,8 @@ count() {
 		
 		((ITERATOR++))
 		((CURR_SEC++))
-		sleep 0.1
-		#sleep 1
+		
+		sleep 1
 	done
 
 	printf "\n"
@@ -50,11 +47,19 @@ pomodoro() {
 	for (( i=1;i<=$INTERVAL;i++ )); do
 		echo "FOCUS! [$i/$INTERVAL]"
 		count $POMO
+		
+		echo "REST!"
+		count $REST
 
+		# Clear last 4 lines
+		tput cuu 4
+		tput ed
+
+		if [ $i -eq $INTERVAL ]; then
+			echo "LONG REST!"
+			count $LONG_REST
+		fi
 	done
-
-	echo "REST!"
-	count $REST
 }
 
 POMO=$1
@@ -63,4 +68,3 @@ LONG_REST=$3
 INTERVAL=$4
 
 pomodoro $POMO $REST $LONG_REST $INTERVAL
-#count $POMO
