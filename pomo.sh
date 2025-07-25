@@ -21,12 +21,8 @@ count() {
 			CURR_SEC=0
 		fi
 
-		if [ $CURR_SEC -lt 10 ]; then
-			printf "\r$CURR_MIN:0$CURR_SEC"
-		else
-			printf "\r$CURR_MIN:$CURR_SEC"
-		fi
-		
+		printf "\r%02d:%02d" $CURR_MIN $CURR_SEC
+
 		((ITERATOR++))
 		((CURR_SEC++))
 		
