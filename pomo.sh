@@ -8,11 +8,11 @@ to_seconds() {
 
 count() {
 	local SECONDS
-	SECONDS="$(to_seconds "$1")"
+	local ITERATOR=0
+	local CURR_MIN=0
+	local CURR_SEC=0
 
-	ITERATOR=0
-	CURR_MIN=0
-	CURR_SEC=0
+	SECONDS=$(to_seconds "$1")
 
 	while [ "$ITERATOR" -le "$SECONDS" ]; do
 		if [ $CURR_SEC -ge 60 ]; then
