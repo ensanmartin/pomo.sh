@@ -1,15 +1,14 @@
 #!/bin/bash
 
 to_seconds() {
-	local INPUT_MINUTES=$1
-	local INPUT_SECONDS=$((INPUT_MINUTES*60))
+	local INPUT_SECONDS=$(($1 * 60))
 	
 	echo "$INPUT_SECONDS"
 }
 
 count() {
-	local MIN=$1
-	local SECONDS=$(to_seconds MIN)
+	local SECONDS
+	SECONDS="$(to_seconds "$1")"
 
 	ITERATOR=0
 	CURR_MIN=0
@@ -29,7 +28,7 @@ count() {
 		sleep 1
 	done
 
-	printf "\n"
+	echo
 }
 
 pomodoro() {
@@ -40,7 +39,7 @@ pomodoro() {
 
 	echo "Welcome to a $POMO/$REST/$LONG_REST/$INTERVAL pomodoro."
 	
-	for (( i=1;i<=$INTERVAL;i++ )); do
+	for (( i=1 ; i <= INTERVAL; i++ )); do
 		echo "FOCUS! [$i/$INTERVAL]"
 		count "$POMO"
 		
